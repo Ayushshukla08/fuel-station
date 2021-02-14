@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * Cachebale annotation by default does not support TTL value
  * So using Guava library to add expiry time to the cache
+ *
+ * IN A PRODUCTION APP WE SHOULD USE SOMETHING LIKE REDIS CACHE.
+ * BELOW CACHE IMPLEMENTATION IS A SIMPLE FALLBACK THAT USES CONCURRENT HASHMAP
  */
 @Configuration
 public class CacheConfig {

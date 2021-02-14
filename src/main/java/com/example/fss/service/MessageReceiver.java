@@ -21,7 +21,7 @@ import java.io.ObjectInputStream;
 public class MessageReceiver implements MessageListener {
 
     @Autowired
-    private FuelPriceCalculator fuelPriceCalculator;
+    private FuelPriceCalculator fuelPriceCalculatorImpl;
 
     /**
      * Method to consume RabbitMQ message from Event-Generator service
@@ -32,7 +32,7 @@ public class MessageReceiver implements MessageListener {
     public void onMessage(Message message) {
         log.info("Consuming message :: {}", message.getBody());
         Car car = (Car) getObject(message.getBody());
-        fuelPriceCalculator.processMessage(car);
+        fuelPriceCalculatorImpl.processMessage(car);
     }
 
     /**

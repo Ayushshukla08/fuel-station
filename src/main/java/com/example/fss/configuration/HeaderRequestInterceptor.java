@@ -14,6 +14,12 @@ import java.nio.charset.StandardCharsets;
  */
 public class HeaderRequestInterceptor implements ClientHttpRequestInterceptor {
 
+    private final CredentialStore credentialStore;
+
+    public HeaderRequestInterceptor(CredentialStore credentialStore) {
+        this.credentialStore = credentialStore;
+    }
+
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         request.getHeaders().set("Authorization", "Basic " + getBase64Creds());
@@ -24,8 +30,7 @@ public class HeaderRequestInterceptor implements ClientHttpRequestInterceptor {
      * Create Authorization header user/password value.
      */
     public String getBase64Creds() {
-        //Hardcoding Credentials here for simplicity. But For a production app, credentials should be injected as Environment variables
-        String auth = "ayush" + ":" + "ayush";
+        String auth = credentialStore.getUserName() + ":" + credentialStore.getPassword();
         byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.US_ASCII));
         return new String(encodedAuth);
     }

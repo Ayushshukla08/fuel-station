@@ -28,7 +28,7 @@ public class FuelPriceClient {
     @Cacheable(CacheConfig.PRICE_CACHE)
     public Double getFuelPrice(String city) {
         String fooResourceUrl
-                = "http://localhost:9000/api/getPrice/" + city;
+                = "http://localhost:9000/api/fuel-price/" + city;
         ResponseEntity<Double> response
                 = restTemplate.getForEntity(fooResourceUrl, Double.class);
 
